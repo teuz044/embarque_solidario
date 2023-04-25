@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "770666017890",
+    "project_id": "embarque-solidario-12881",
+    "storage_bucket": "embarque-solidario-12881.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770666017890:android:deb0eb3e58ab49cc6ecd3b",
+        "android_client_info": {
+          "package_name": "com.example.embarque_solidario"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770666017890-n6smqhkmnpfb8f1rhicdjul6vck0a54d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDilljD0G8L8TcYELZ44gV84U-0lfTizNo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770666017890-n6smqhkmnpfb8f1rhicdjul6vck0a54d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
