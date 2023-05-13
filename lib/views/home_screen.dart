@@ -1,31 +1,203 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../widgets/build_card.dart';
+
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key, required this.userName}) : super(key: key);
+
+  final String userName;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Screen'),
-        backgroundColor: Colors.black,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Center(
-          child: ElevatedButton(
+        backgroundColor: const Color(0xFF3742FA),
+        title: Center(child: Text('Bem vindo, $userName')),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.menu),
             onPressed: () {
-              //Use this to Log Out user
-              FirebaseAuth.instance.signOut();
+              // Adicione ação do menu lateral aqui
+              Scaffold.of(context).openDrawer();
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.black,
-            ),
-            child: const Text('Sign Out'),
           ),
+        ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color(0xFF3742FA),
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            DrawerItem(
+              icon: Icons.account_circle,
+              title: 'Profile',
+              onTap: () {
+                // Implemente a ação quando o item for selecionado
+              },
+            ),
+            DrawerItem(
+              icon: Icons.settings,
+              title: 'Settings',
+              onTap: () {
+                // Implemente a ação quando o item for selecionado
+              },
+            ),
+            DrawerItem(
+              icon: Icons.logout,
+              title: 'Sign Out',
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+              },
+            ),
+          ],
         ),
       ),
+      body: Stack(
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                height: 200,
+                width: double.maxFinite,
+                color: const Color(0xFF3742FA),
+                padding: const EdgeInsets.all(32.0),
+                child: Column(
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        hintText: 'Pesquisar...',
+                        prefixIcon: const Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 22), // Espaçamento entre o TextField e o texto "Categorias"
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Categorias:',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: Colors.white,
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 50.0),
+                        child: Container(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Recomendados na sua região',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              // Adicione os itens recomendados aqui
+
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Positioned(
+            top: 160,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    height: 80,
+                    width: 80,
+                    color: Colors.grey,
+                  ),
+                  Container(
+                    height: 80,
+                    width: 80,
+                    color: Colors.grey,
+                  ),
+                  Container(
+                    height: 80,
+                    width: 80,
+                    color: Colors.grey,
+                  ),
+                  Container(
+                    height: 80,
+                    width: 80,
+                    color: Colors.grey,
+                  ),
+                  Container(
+                    height: 80,
+                    width: 80,
+                    color: Colors.grey,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+
+    );
+  }
+}
+
+class DrawerItem extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final VoidCallback onTap;
+
+  const DrawerItem({super.key,
+    required this.icon,
+    required this.title,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      onTap: onTap,
     );
   }
 }
