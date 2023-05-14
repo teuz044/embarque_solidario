@@ -25,7 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _loading = true);
 
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Erro ao fazer login: ${e.toString()}'),
@@ -36,7 +37,8 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     setState(() => _loading = false);
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen(userName: 'John Doe')));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => HomeScreen(userName: 'John Doe')));
   }
 
   @override
@@ -78,31 +80,39 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 const SizedBox(height: 20),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
+                Padding(
+                  padding: EdgeInsets.all(1),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                        ),
+                        onPressed: () => _login(),
+                        child: _loading
+                            ? const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : const Text('Login'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegisterScreen()),
+                          );
+                        },
+                        child: Text('Registre-se'),
+                      )
+                    ],
                   ),
-                  onPressed: () => _login(),
-                  child: _loading
-                      ? const SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                      strokeWidth: 2,
-                    ),
-                  )
-                      : const Text('Login'),
-                ),
-
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => RegisterScreen()),
-                    );
-                  },
-                  child: Text('Registre-se'),
                 )
               ],
             ),

@@ -1,10 +1,14 @@
+import 'package:flutter/material.dart';
+//import 'package:embarque_solidario/views/doacoes_disponiveis.dart';
 import 'package:embarque_solidario/views/home_screen.dart';
 import 'package:embarque_solidario/views/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'firebase_options.dart';
 
+/*void main(List<String> args) {
+  runApp(DoacoesDiponiveis());
+}*/
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -22,8 +26,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Firebase Auth',
       theme: ThemeData(
-        textTheme:
-        GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
+        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
         primarySwatch: Colors.blue,
       ),
       home: const LoginScreen(),
