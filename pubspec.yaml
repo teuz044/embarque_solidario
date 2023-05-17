@@ -45,6 +45,7 @@ dependencies:
   googleapis_auth: ^1.4.0
   google_sign_in: ^6.1.0
   google_fonts: ^4.0.3
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
