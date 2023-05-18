@@ -22,11 +22,17 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Firebase Auth',
       theme: ThemeData(
-        textTheme:
-        GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
+        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
         primarySwatch: Colors.blue,
       ),
       home: const HomeScreen(userName: 'Matheus'),
     );
   }
 }
+/*
+void main(List<String> args) {
+  runApp(MaterialApp(
+    home: AddDoacoes(),
+    debugShowCheckedModeBanner: false,
+  ));
+}*/

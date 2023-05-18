@@ -1,30 +1,34 @@
+import 'package:embarque_solidario/model/doacoes.dart';
 import 'package:flutter/material.dart';
+import '../widgets/doacoes_list_item.dart';
 
-class DoacoesDiponiveis extends StatefulWidget {
-  const DoacoesDiponiveis({super.key});
+class DoacoesDisponiveis extends StatelessWidget {
+  final List<Doacoes> doacoes;
 
-  @override
-  State<DoacoesDiponiveis> createState() => _DoacoesDiponiveisState();
-}
+  DoacoesDisponiveis({required this.doacoes});
 
-class _DoacoesDiponiveisState extends State<DoacoesDiponiveis> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text(
-          "Doações disponíveis",
+          'Doações disponíveis',
           style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Colors.white,
       ),
-      body: SingleChildScrollView(
-        child: Card(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: "",
-        child: const Icon(Icons.filter_list_alt),
+      body: ListView.builder(
+        itemCount: doacoes.length,
+        itemBuilder: (context, index) {
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+            ),
+            margin: const EdgeInsets.symmetric(vertical: 2),
+            padding: const EdgeInsets.all(16),
+            child: DoacoesListItem(doacoes: doacoes[index]),
+          );
+        },
       ),
     );
   }
