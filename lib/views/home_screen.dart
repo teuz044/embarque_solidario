@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:embarque_solidario/views/add_doacoes.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -46,6 +47,25 @@ class HomeScreen extends StatelessWidget {
                   fontSize: 24,
                 ),
               ),
+            ),
+            DrawerItem(
+              icon: Icons.add,
+              title: 'Adicionar doações',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddDoacoes(),
+                  ),
+                );
+              },
+            ),
+            DrawerItem(
+              icon: Icons.list,
+              title: 'Doações',
+              onTap: () {
+                // Implemente a ação quando o item for selecionado
+              },
             ),
             DrawerItem(
               icon: Icons.account_circle,

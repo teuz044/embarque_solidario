@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:embarque_solidario/model/doacoes.dart';
 import 'package:embarque_solidario/views/doacoes_disponiveis.dart';
 import 'package:flutter/material.dart';
@@ -17,18 +19,86 @@ class _AddDoacoesState extends State<AddDoacoes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Adicionando doações"),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        title: Text(
+          'Adicionar doação',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: Column(
         children: [
-          TextField(
-            controller: controllerTitle,
-            decoration: InputDecoration(labelText: 'Título'),
+          SizedBox(height: 20),
+          Container(
+            width: 120,
+            height: 120,
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              shape: BoxShape.circle,
+            ),
+            child: IconButton(
+              onPressed: () {
+                // Lógica para alterar a imagem
+              },
+              icon: Icon(
+                Icons.camera_alt,
+                size: 40,
+              ),
+              color: Colors.white,
+            ),
           ),
-          TextField(
-            controller: controllerDescription,
-            decoration: InputDecoration(labelText: 'Descrição'),
+          SizedBox(height: 10),
+          Text(
+            'Adicione uma imagem da doação',
+            style: TextStyle(fontSize: 18),
           ),
+          SizedBox(height: 20),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'Título:',
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: TextFormField(
+              controller: controllerTitle,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'O que você está doando?',
+              ),
+              maxLines: 3,
+            ),
+          ),
+          SizedBox(height: 20),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'Entrega:',
+                style: TextStyle(fontSize: 18),
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: TextFormField(
+              controller: controllerDescription,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Adicione uma descrição da entrega.',
+              ),
+              maxLines: 3,
+            ),
+          ),
+          SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
               String title = controllerTitle.text;

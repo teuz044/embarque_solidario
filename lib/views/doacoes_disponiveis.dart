@@ -13,8 +13,9 @@ class DoacoesDisponiveis extends StatelessWidget {
       //backgroundColor: Colors.white70,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        centerTitle: true,
         title: Text(
-          'Doações disponíveis',
+          'Doações',
           style: TextStyle(color: Colors.black),
         ),
       ),
