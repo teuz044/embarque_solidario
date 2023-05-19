@@ -15,7 +15,7 @@ class DoacoesListItem extends StatelessWidget {
       },
       background: Container(
         alignment: Alignment.centerRight,
-        color: Colors.red,
+        color: Colors.grey,
         child: const Icon(Icons.delete, color: Colors.grey),
       ),
       child: Container(
@@ -28,15 +28,27 @@ class DoacoesListItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              doacoes.dateTime.toString(),
-              style: const TextStyle(fontSize: 12, color: Colors.black),
-            ),
             Text(doacoes.title,
                 style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: Colors.black)),
+            Text(
+              doacoes.description,
+              style: const TextStyle(fontSize: 12, color: Colors.black),
+            ),
+              Padding(
+                padding: EdgeInsets.all(5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    doacoes.dateTime.toString(),
+                    style: const TextStyle(fontSize: 12, color: Colors.black),
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),
