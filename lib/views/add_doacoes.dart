@@ -81,7 +81,7 @@ class _AddDoacoesState extends State<AddDoacoes> {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
-                'Entrega:',
+                'Descrição:',
                 style: TextStyle(fontSize: 18),
               ),
             ),
