@@ -20,35 +20,46 @@ class DoacoesListItem extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
-          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.grey,
         ),
         margin: const EdgeInsets.symmetric(vertical: 2),
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(doacoes.title,
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black)),
-            Text(
-              doacoes.description,
-              style: const TextStyle(fontSize: 12, color: Colors.black),
-            ),
-              Padding(
-                padding: EdgeInsets.all(5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    doacoes.dateTime.toString(),
-                    style: const TextStyle(fontSize: 12, color: Colors.black),
-                  )
-                ],
-              ),
-            ),
+            Row(
+              children: [
+                SizedBox(height: 20),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(doacoes.title,
+                        style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black)),
+                    Text(
+                      doacoes.description,
+                      style: const TextStyle(fontSize: 12, color: Colors.black),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Row(
+                        children: [
+                          Text(
+                            doacoes.dateTime.toString(),
+                            style: const TextStyle(
+                                fontSize: 12, color: Colors.black),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            )
           ],
         ),
       ),
