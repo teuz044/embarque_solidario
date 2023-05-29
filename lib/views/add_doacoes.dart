@@ -13,17 +13,15 @@ class _AddDoacoesState extends State<AddDoacoes> {
   final TextEditingController controllerTitle = TextEditingController();
   final TextEditingController controllerDescription = TextEditingController();
 
-  List<Doacoes> doacoes = [];
+  List<Doacao> doacoes = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.white,
         title: Text(
           'Adicionar doação',
-          style: TextStyle(color: Colors.black),
         ),
       ),
       body: Column(
@@ -104,21 +102,22 @@ class _AddDoacoesState extends State<AddDoacoes> {
               String title = controllerTitle.text;
               String description = controllerDescription.text;
               setState(() {
-                Doacoes newDoacao = Doacoes(
+                Doacao newDoacao = Doacao(
                   title: title,
                   description: description,
                   dateTime: DateTime.now(),
+                  id: '',
                 );
                 doacoes.add(newDoacao);
               });
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DoacoesDisponiveis(doacoes: doacoes),
+                  builder: (context) => DoacoesDisponiveis(),
                 ),
               );
             },
-            child: Text('Enviar'),
+            child: Text('Salvar'),
           ),
         ],
       ),

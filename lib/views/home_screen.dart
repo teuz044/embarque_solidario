@@ -1,8 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:embarque_solidario/views/add_doacoes.dart';
+import 'package:embarque_solidario/views/doacoes_disponiveis.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
+import '../provider/doacoes.dart';
 import 'login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -57,7 +60,15 @@ class HomeScreen extends StatelessWidget {
               icon: Icons.list,
               title: 'Doações',
               onTap: () {
-                // Implemente a ação quando o item for selecionado
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChangeNotifierProvider(
+                      create: (ctx) => new Doacoes(),
+                      child: DoacoesDisponiveis(),
+                    ),
+                  ),
+                );
               },
             ),
             DrawerItem(
@@ -80,10 +91,10 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                 FirebaseAuth.instance.signOut();
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
+                  context,
+                  MaterialPageRoute(
                     builder: (context) => const LoginScreen(),
-                    ),
+                  ),
                 );
               },
             ),
@@ -174,8 +185,8 @@ class HomeScreen extends StatelessWidget {
                                               child: Center(
                                                 child: Text(
                                                   item,
-                                                  style:
-                                                      const TextStyle(fontSize: 18),
+                                                  style: const TextStyle(
+                                                      fontSize: 18),
                                                 ),
                                               ),
                                             ),

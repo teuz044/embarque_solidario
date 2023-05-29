@@ -1,37 +1,37 @@
-import 'package:embarque_solidario/model/doacoes.dart';
+import 'dart:js_util';
+
+import 'package:embarque_solidario/components/doacoao_tile.dart';
+import 'package:embarque_solidario/provider/doacoes.dart';
 import 'package:flutter/material.dart';
-import '../widgets/doacoes_list_item.dart';
+import 'package:provider/provider.dart';
+
+import 'add_doacoes.dart';
 
 class DoacoesDisponiveis extends StatelessWidget {
-  final List<Doacoes> doacoes;
-
-  DoacoesDisponiveis({required this.doacoes});
-
   @override
   Widget build(BuildContext context) {
+    final Doacoes doacoes = Provider.of(context);
     return Scaffold(
-      //backgroundColor: Colors.white70,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         centerTitle: true,
-        title: Text(
-          'Doações',
-          style: TextStyle(color: Colors.black),
-        ),
+        title: const Text('Doações'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddDoacoes(),
+                ),
+              );
+            },
+            icon: Icon(Icons.add),
+          ),
+        ],
       ),
       body: ListView.builder(
-        itemCount: doacoes.length,
-        itemBuilder: (context, index) {
-          return Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-            ),
-            margin: const EdgeInsets.symmetric(vertical: 2),
-            padding: const EdgeInsets.all(16),
-            child: DoacoesListItem(doacoes: doacoes[index]),
-          );
-        },
-      ),
+          itemCount: doacoes.count,
+          itemBuilder: (ctx, i) => DoacaoTile(doacoes.all.elementAt(i))),
     );
   }
 }
