@@ -1,5 +1,5 @@
-import 'dart:html';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' as foundation;
 
 class Solicitacoes extends StatefulWidget {
   @override
@@ -182,8 +182,7 @@ class _SolicitacoesState extends State<Solicitacoes> {
                               _cancelarSolicitacao(index);
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: Color(0x7bfb0303),
-                              onPrimary: Colors.white,
+                              foregroundColor: Colors.white, backgroundColor: Color(0x7bfb0303),
                             ),
                             child: Text(
                               'Cancelar solicitação',
@@ -201,12 +200,11 @@ class _SolicitacoesState extends State<Solicitacoes> {
                             width: 150, // Defina a largura máxima desejada
                             child: ElevatedButton(
                               onPressed: () {
-                                Navigator.pop();
+                                Navigator.pop(context);
                                 // Ação do botão
                               },
                               style: ElevatedButton.styleFrom(
-                                primary: Color(0xffcfcfcf),
-                                onPrimary: Colors.black,
+                                foregroundColor: Colors.black, backgroundColor: Color(0xffcfcfcf),
                               ),
                               child: Row(
                                 children: [
@@ -236,7 +234,7 @@ class _SolicitacoesState extends State<Solicitacoes> {
 class DrawerItem extends StatefulWidget {
   final IconData icon;
   final String title;
-  final VoidCallback onTap;
+  final foundation.VoidCallback onTap;
 
   const DrawerItem({
     Key? key,

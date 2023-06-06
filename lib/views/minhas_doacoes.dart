@@ -1,5 +1,5 @@
-import 'dart:html';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' as foundation;
 
 
 class MinhasDoacoes extends StatefulWidget {
@@ -185,8 +185,7 @@ class _MinhasDoacoesState extends State<MinhasDoacoes> {
                                 _apagarDoacao(index);
                               },
                               style: ElevatedButton.styleFrom(
-                                primary: Color(0xffcfcfcf),
-                                onPrimary: Colors.black,
+                                foregroundColor: Colors.black, backgroundColor: Color(0xffcfcfcf),
                               ),
                               child: Builder(
                                 builder: (BuildContext context) {
@@ -216,8 +215,7 @@ class _MinhasDoacoesState extends State<MinhasDoacoes> {
                                 //acao de editar
                               },
                               style: ElevatedButton.styleFrom(
-                                primary: Color(0xffcfcfcf),
-                                onPrimary: Colors.black,
+                                foregroundColor: Colors.black, backgroundColor: Color(0xffcfcfcf),
                               ),
                               child: Row(
                                 children: [
@@ -255,7 +253,7 @@ class _MinhasDoacoesState extends State<MinhasDoacoes> {
 class DrawerItem extends StatefulWidget {
   final IconData icon;
   final String title;
-  final VoidCallback onTap;
+  final foundation.VoidCallback onTap;
 
   const DrawerItem({
     Key? key,
