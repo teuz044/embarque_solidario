@@ -3,30 +3,85 @@ import 'package:embarque_solidario/views/add_doacoes.dart';
 import 'package:embarque_solidario/views/doacoes_disponiveis.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
+import 'package:dio/dio.dart';
+import '../model/doacoes.dart';
+import '../model/ItemModel.dart';
 
-import '../provider/doacoes.dart';
+import '../widgets/custom_card.dart';
 import 'login_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, required this.userName}) : super(key: key);
 
   final String userName;
 
   @override
-  Widget build(BuildContext context) {
-    final List<String> carouselItems = [
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 4',
-      'Item 5',
-    ];
+  _HomeScreenState createState() => _HomeScreenState();
+}
 
+class _HomeScreenState extends State<HomeScreen> {
+  final List<String> carouselItemsRegiao = [
+    'https://i.imgur.com/7uyiZss.jpg',
+    'https://i.imgur.com/Q2riFCl.jpg',
+    'https://i.imgur.com/OsxwsKg.jpg',
+    'https://i.imgur.com/qagvMAp.jpg',
+  ];
+
+  final List<String> carouselItemsRecomendados = [
+    'https://i.imgur.com/7uyiZss.jpg',
+    'https://i.imgur.com/qagvMAp.jpg',
+    'https://i.imgur.com/Q2riFCl.jpg',
+    'https://i.imgur.com/OsxwsKg.jpg'
+  ];
+
+  List<Doacoes> doacoes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchDoacoesFromDatabase().then((doacoes) {
+      setState(() {
+        this.doacoes = doacoes;
+      });
+    }).catchError((error) {
+      print(error);
+      // Trate o erro de acordo com a sua lógica
+    });
+  }
+
+  Future<List<Doacoes>> fetchDoacoesFromDatabase() async {
+    final String apiUrl = 'http://localhost:8080/itens';
+
+    try {
+      Dio dio = Dio();
+      final response = await dio.get(apiUrl);
+
+      if (response.statusCode == 200) {
+        final List<dynamic> responseData = List.from(response.data);
+
+        final List<Doacoes> doacoes = responseData.map((item) {
+          ItemModel itemModel = ItemModel.fromJson(item);
+          return Doacoes(
+            item: itemModel,
+            dateTime: DateTime.now(),
+          );
+        }).toList();
+
+        return doacoes;
+      } else {
+        throw Exception('Falha ao obter as doações');
+      }
+    } catch (e) {
+      throw Exception('Erro de conexão');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF3742FA),
-        title: Center(child: Text('Bem vindo, $userName')),
+        title: Center(child: Text('Bem vindo, ${widget.userName}')),
       ),
       drawer: Drawer(
         child: ListView(
@@ -51,7 +106,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddDoacoes(),
+                    builder: (context) => AddDoacoes(doacoes: [],),
                   ),
                 );
               },
@@ -63,10 +118,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ChangeNotifierProvider(
-                      create: (ctx) => new Doacoes(),
-                      child: DoacoesDisponiveis(),
-                    ),
+                    builder: (context) => DoacoesDisponiveis(),
                   ),
                 );
               },
@@ -128,8 +180,8 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(
-                            height:
-                                22), // Espaçamento entre o TextField e o texto "Categorias"
+                          height: 22,
+                        ),
                         const Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -171,25 +223,17 @@ class HomeScreen extends StatelessWidget {
                                   // Adicione os itens recomendados aqui
                                   CarouselSlider(
                                     options: CarouselOptions(
-                                      height: 250,
+                                      height: 200,
                                       enableInfiniteScroll: false,
                                       viewportFraction: 0.3,
                                     ),
-                                    items: carouselItems.map((item) {
+                                    items: doacoes.map((item) {
                                       return Builder(
                                         builder: (BuildContext context) {
-                                          return Card(
-                                            child: SizedBox(
-                                              height: 250,
-                                              width: 250,
-                                              child: Center(
-                                                child: Text(
-                                                  item,
-                                                  style: const TextStyle(
-                                                      fontSize: 18),
-                                                ),
-                                              ),
-                                            ),
+                                          return CustomCard(
+                                            title: item.getItem.getNomeItem,
+                                            description: item.getItem.getDescricaoItem,
+                                            imageUrl: item.getItem.getImagem,
                                           );
                                         },
                                       );
@@ -203,7 +247,7 @@ class HomeScreen extends StatelessWidget {
                           const Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Recomendados para voce',
+                              'Recomendados para você',
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -213,24 +257,17 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(height: 16),
                           CarouselSlider(
                             options: CarouselOptions(
-                              height: 250,
+                              height: 200,
                               enableInfiniteScroll: false,
                               viewportFraction: 0.3,
                             ),
-                            items: carouselItems.map((item) {
+                            items: doacoes.map((item) {
                               return Builder(
                                 builder: (BuildContext context) {
-                                  return Card(
-                                    child: Container(
-                                      height: 250,
-                                      width: 250,
-                                      child: Center(
-                                        child: Text(
-                                          item,
-                                          style: const TextStyle(fontSize: 18),
-                                        ),
-                                      ),
-                                    ),
+                                  return CustomCard(
+                                    title: item.getItem.getNomeItem,
+                                    description: item.getItem.getDescricaoItem,
+                                    imageUrl: item.getItem.getImagem,
                                   );
                                 },
                               );
@@ -252,27 +289,27 @@ class HomeScreen extends StatelessWidget {
                       Container(
                         height: 80,
                         width: 80,
-                        color: Colors.grey,
+                        child: Image.network('https://i.imgur.com/2VoSA0f.png'),
                       ),
                       Container(
                         height: 80,
                         width: 80,
-                        color: Colors.grey,
+                        child: Image.network('https://i.imgur.com/Qi7tb17.png'),
                       ),
                       Container(
                         height: 80,
                         width: 80,
-                        color: Colors.grey,
+                        child: Image.network('https://i.imgur.com/YkfgmvA.png'),
                       ),
                       Container(
                         height: 80,
                         width: 80,
-                        color: Colors.grey,
+                        child: Image.network('https://i.imgur.com/dYZQBFD.png'),
                       ),
                       Container(
                         height: 80,
                         width: 80,
-                        color: Colors.grey,
+                        child: Image.network('https://i.imgur.com/RejJa08.png'),
                       ),
                     ],
                   ),
@@ -292,11 +329,11 @@ class DrawerItem extends StatelessWidget {
   final VoidCallback onTap;
 
   const DrawerItem({
-    super.key,
+    Key? key,
     required this.icon,
     required this.title,
     required this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -307,3 +344,5 @@ class DrawerItem extends StatelessWidget {
     );
   }
 }
+
+

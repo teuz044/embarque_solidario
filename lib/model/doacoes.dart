@@ -1,12 +1,21 @@
-class Doacao {
-  final String id;
-  final String title;
-  final String description;
+import 'ItemModel.dart';
+
+class Doacoes {
+  final ItemModel item;
   final DateTime dateTime;
 
-  Doacao(
-      {required this.title,
-      required this.description,
-      required this.dateTime,
-      required this.id});
+  Doacoes({
+    required this.item,
+    required this.dateTime,
+  });
+
+  factory Doacoes.fromItemModel(ItemModel item) {
+    return Doacoes(
+      item: item,
+      dateTime: DateTime.now(),
+    );
+  }
+
+  ItemModel get getItem => item;
+  DateTime get getDateTime => dateTime;
 }

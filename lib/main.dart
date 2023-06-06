@@ -1,13 +1,7 @@
-import 'package:embarque_solidario/model/doacoes.dart';
-import 'package:embarque_solidario/provider/doacoes.dart';
-import 'package:embarque_solidario/views/doacoes_disponiveis.dart';
 import 'package:embarque_solidario/views/home_screen.dart';
-import 'package:embarque_solidario/views/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'firebase_options.dart';
-import 'views/add_doacoes.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -34,14 +28,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-/*
-void main(List<String> args) {
-  runApp(MaterialApp(
-    home: ChangeNotifierProvider(
-      create: (ctx) => new Doacoes(),
-      child: DoacoesDisponiveis(),
-    ),
-    debugShowCheckedModeBanner: false,
-  ));
-}
-*/
