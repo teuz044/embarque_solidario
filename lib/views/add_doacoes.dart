@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:embarque_solidario/views/doacoes_disponiveis.dart';
 import 'package:flutter/material.dart';
@@ -64,10 +63,10 @@ class _AddDoacoesState extends State<AddDoacoes> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFF3742FA),
         title: Text(
           'Adicionar doação',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
       ),
       body: Column(
@@ -167,7 +166,11 @@ class _AddDoacoesState extends State<AddDoacoes> {
               maxLines: 3,
             ),
           ),
+          SizedBox(height: 10),
           ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF3742FA)),
+            ),
             onPressed: () async {
               await enviarDoacao(); // Chama a função para enviar a doação para o backend
               String titleItem = controllerTitle.text;

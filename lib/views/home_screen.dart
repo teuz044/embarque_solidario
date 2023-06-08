@@ -20,19 +20,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<String> carouselItemsRegiao = [
-    'https://i.imgur.com/7uyiZss.jpg',
-    'https://i.imgur.com/Q2riFCl.jpg',
-    'https://i.imgur.com/OsxwsKg.jpg',
-    'https://i.imgur.com/qagvMAp.jpg',
-  ];
 
-  final List<String> carouselItemsRecomendados = [
-    'https://i.imgur.com/7uyiZss.jpg',
-    'https://i.imgur.com/qagvMAp.jpg',
-    'https://i.imgur.com/Q2riFCl.jpg',
-    'https://i.imgur.com/OsxwsKg.jpg'
-  ];
 
   List<Doacoes> doacoes = [];
 

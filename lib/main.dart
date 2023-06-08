@@ -1,4 +1,5 @@
 import 'package:embarque_solidario/views/home_screen.dart';
+import 'package:embarque_solidario/views/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'firebase_options.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
         primarySwatch: Colors.blue,
       ),
-      home: const HomeScreen(userName: 'Matheus'),
+      home: const LoginScreen(),
     );
   }
 }

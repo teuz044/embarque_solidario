@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../widgets/doacoes_list_item.dart';
 import '../model/doacoes.dart';
 import '../model/ItemModel.dart';
+import 'detalhes_doacoes.dart';
 
 class DoacoesDisponiveis extends StatefulWidget {
   @override
@@ -47,15 +48,24 @@ class _DoacoesDisponiveisState extends State<DoacoesDisponiveis> {
     }
   }
 
+  void navigateToDetalhesDoacoes(Doacoes doacao) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DetalhesDoacoes(doacao: doacao),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFF3742FA),
         centerTitle: true,
         title: Text(
           'Doações',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
       ),
       body: FutureBuilder<List<Doacoes>>(
@@ -75,13 +85,18 @@ class _DoacoesDisponiveisState extends State<DoacoesDisponiveis> {
             return ListView.builder(
               itemCount: doacoes.length,
               itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
+                return InkWell(
+                  onTap: () {
+                    navigateToDetalhesDoacoes(doacoes[index]);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    margin: const EdgeInsets.symmetric(vertical: 2),
+                    padding: const EdgeInsets.all(16),
+                    child: DoacoesListItem(doacoes: doacoes[index]),
                   ),
-                  margin: const EdgeInsets.symmetric(vertical: 2),
-                  padding: const EdgeInsets.all(16),
-                  child: DoacoesListItem(doacoes: doacoes[index]),
                 );
               },
             );

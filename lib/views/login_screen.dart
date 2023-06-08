@@ -25,24 +25,35 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _loading = true);
 
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Erro ao fazer login: ${e.toString()}'),
-        duration: const Duration(seconds: 5),
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Erro ao fazer login: ${e.toString()}'),
+          duration: const Duration(seconds: 5),
+        ),
+      );
       setState(() => _loading = false);
       return;
     }
 
     setState(() => _loading = false);
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen(userName: 'John Doe')));
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => HomeScreen(userName: 'John Doe'),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: const Color(0xFF3742FA),
         title: const Text('Login'),
       ),
       body: SafeArea(
@@ -54,10 +65,19 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Image.network(
+                  'https://i.imgur.com/hVUgOhT.jpg',
+                  height: 350,
+                ),
                 TextFormField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(hintText: 'Email'),
+                  decoration: InputDecoration(
+                    hintText: 'Email',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, digite o seu email.';
@@ -69,7 +89,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextFormField(
                   controller: _passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(hintText: 'Senha'),
+                  decoration: InputDecoration(
+                    hintText: 'Senha',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, digite a sua senha.';
@@ -80,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
+                    backgroundColor: const Color(0xFF3742FA),
                   ),
                   onPressed: () => _login(),
                   child: _loading
@@ -94,8 +119,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   )
                       : const Text('Login'),
                 ),
-
+                SizedBox(height: 16),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF3742FA),
+                  ),
                   onPressed: () {
                     Navigator.push(
                       context,
